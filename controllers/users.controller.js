@@ -29,7 +29,7 @@ const createUser = async (req, res) => {
     });
 
     const response = responseTemplate({ id }, 'success', null, 201);
-    res.json(response);
+    res.status(201).json(response);
     return;
   } catch (error) {
     const response = responseTemplate(
@@ -38,7 +38,7 @@ const createUser = async (req, res) => {
       error,
       500
     );
-    res.json(response);
+    res.status(500).json(response);
     return;
   }
 };
@@ -61,7 +61,7 @@ const getUsers = async (req, res) => {
     });
 
     const response = responseTemplate(users, 'success', null, 200);
-    res.json(response);
+    res.status(200).json(response);
     return;
   } catch (error) {
     const response = responseTemplate(
@@ -70,7 +70,7 @@ const getUsers = async (req, res) => {
       error,
       500
     );
-    res.json(response);
+    res.status(500).json(response);
     return;
   }
 };
@@ -98,7 +98,7 @@ const getUserById = async (req, res) => {
     });
 
     const response = responseTemplate(user, 'success', null, 200);
-    res.json(response);
+    res.status(200).json(response);
     return;
   } catch (error) {
     const response = responseTemplate(
@@ -107,7 +107,7 @@ const getUserById = async (req, res) => {
       error,
       500
     );
-    res.json(response);
+    res.status(500).json(response);
     return;
   }
 };
@@ -131,7 +131,7 @@ async function editUser(req, res) {
     });
 
     const response = responseTemplate(null, 'success', null, 200);
-    res.json(response);
+    res.status(200).json(response);
     return;
   } catch (error) {
     const response = responseTemplate(
@@ -140,7 +140,7 @@ async function editUser(req, res) {
       error,
       500
     );
-    res.json(response);
+    res.status(500).json(response);
     return;
   }
 }
@@ -156,7 +156,7 @@ async function deleteUser(req, res) {
     });
 
     const response = responseTemplate(null, 'success', null, 200);
-    res.json(response);
+    res.status(200).json(response);
     return;
   } catch (error) {
     const response = responseTemplate(
@@ -165,7 +165,7 @@ async function deleteUser(req, res) {
       error,
       500
     );
-    res.json(response);
+    res.status(500).json(response);
     return;
   }
 }
