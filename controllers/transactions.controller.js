@@ -32,7 +32,7 @@ async function addTransaction(req, res) {
         null,
         404
       );
-      res.json(response);
+      res.status(404).json(response);
       return;
     }
 
@@ -43,7 +43,7 @@ async function addTransaction(req, res) {
         null,
         400
       );
-      res.json(response);
+      res.status(400).json(response);
       return;
     }
 
@@ -69,8 +69,8 @@ async function addTransaction(req, res) {
       data: payload,
     });
 
-    const response = responseTemplate({ id }, 'success', null, 200);
-    res.json(response);
+    const response = responseTemplate({ id }, 'success', null, 201);
+    res.status(201).json(response);
     return;
   } catch (error) {
     const response = responseTemplate(
@@ -79,7 +79,7 @@ async function addTransaction(req, res) {
       error,
       500
     );
-    res.json(response);
+    res.status(500).json(response);
     return;
   }
 }
@@ -87,9 +87,8 @@ async function addTransaction(req, res) {
 async function getTransactions(req, res) {
   try {
     const transaction = await prisma.transactions.findMany();
-    console.log(transaction);
     const response = responseTemplate(transaction, 'success', null, 200);
-    res.json(response);
+    res.status(200).json(response);
     return;
   } catch (error) {
     const response = responseTemplate(
@@ -98,7 +97,7 @@ async function getTransactions(req, res) {
       error,
       500
     );
-    res.json(response);
+    res.status(500).json(response);
     return;
   }
 }
@@ -118,11 +117,11 @@ async function getTransactionById(req, res) {
     });
 
     const response = responseTemplate(transaction, 'success', null, 200);
-    res.json(response);
+    res.status(200).json(response);
     return;
   } catch (error) {
     const response = responseTemplate(null, error.message, error, 500);
-    res.json(response);
+    res.status(500).json(response);
     return;
   }
 }

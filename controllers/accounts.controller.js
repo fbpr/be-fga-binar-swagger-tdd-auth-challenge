@@ -23,7 +23,7 @@ const createAccount = async (req, res) => {
     });
 
     const response = responseTemplate({ id }, 'success', null, 201);
-    res.json(response);
+    res.status(201).json(response);
     return;
   } catch (error) {
     const response = responseTemplate(
@@ -32,7 +32,7 @@ const createAccount = async (req, res) => {
       error,
       500
     );
-    res.json(response);
+    res.status(500).json(response);
     return;
   }
 };
@@ -40,7 +40,11 @@ const createAccount = async (req, res) => {
 const getAccounts = async (req, res) => {
   try {
     const accounts = await prisma.bankAccounts.findMany({
-      include: {
+      select: {
+        id: true,
+        bank_name: true,
+        bank_account_number: true,
+        balance: true,
         user: {
           select: {
             name: true,
@@ -51,7 +55,7 @@ const getAccounts = async (req, res) => {
     });
 
     const response = responseTemplate(accounts, 'success', null, 200);
-    res.json(response);
+    res.status(200).json(response);
     return;
   } catch (error) {
     const response = responseTemplate(
@@ -60,7 +64,7 @@ const getAccounts = async (req, res) => {
       error,
       500
     );
-    res.json(response);
+    res.status(500).json(response);
     return;
   }
 };
@@ -72,7 +76,11 @@ async function getAccountsById(req, res) {
       where: {
         id: accountId,
       },
-      include: {
+      select: {
+        id: true,
+        bank_name: true,
+        bank_account_number: true,
+        balance: true,
         user: {
           select: {
             name: true,
@@ -83,7 +91,7 @@ async function getAccountsById(req, res) {
     });
 
     const response = responseTemplate(account, 'success', null, 200);
-    res.json(response);
+    res.status(200).json(response);
     return;
   } catch (error) {
     const response = responseTemplate(
@@ -92,7 +100,7 @@ async function getAccountsById(req, res) {
       error,
       500
     );
-    res.json(response);
+    res.status(500).json(response);
     return;
   }
 }
@@ -114,7 +122,7 @@ async function editAccount(req, res) {
     });
 
     const response = responseTemplate(account, 'success', null, 200);
-    res.json(response);
+    rres.status(200).json(response);
     return;
   } catch (error) {
     const response = responseTemplate(
@@ -123,7 +131,7 @@ async function editAccount(req, res) {
       error,
       500
     );
-    res.json(response);
+    res.status(500).json(response);
     return;
   }
 }
@@ -148,7 +156,7 @@ async function deleteAccount(req, res) {
       error,
       500
     );
-    res.json(response);
+    res.status(500).json(response);
     return;
   }
 }
